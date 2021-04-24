@@ -14,65 +14,108 @@ const findAllEmployees = () => {
   });
 };
 
-/*
-async findAllDepartments() {
-    return await this.
-}
-if (menuData.nextStep === "View all departments") {
-if (menuData.nextStep === "View all roles") {
-if (menuData.nextStep === "View all employees") {
-
-*/
-if (menuData.nextStep === "Add a department") {
-    //
-    //database call
-    const sql = `INSERT INTO candidates (first_name, last_name, industry_connected)
-    VALUES (?,?,?)`;
-    const params = [body.first_name, body.last_name, body.industry_connected];
-
-    db.query(sql, params, (err, result) => {
+const findAllDepartments = () => {
+  const sql = `SELECT * FROM department`;
+  //query the connection between database and console
+  connection.query(sql, (err, rows) => {
     if (err) {
-        res.status(400).json({ error: err.message });
-        return;
-  }
-  res.json({
-    message: 'success',
-    data: body
+      console.log(err.message);
+      return;
+    }
+    console.table(rows);
   });
-});
+};
 
-if (menuData.nextStep === "Add a role") {
-if (menuData.nextStep === "Add an employee") {
-if (menuData.nextStep === "Update an employee role") {
+const findAllRoles = () => {
+  const sql = `SELECT * FROM role`;
+  //query the connection between database and console
+  connection.query(sql, (err, rows) => {
+    if (err) {
+      console.log(err.message);
+      return;
+    }
+    console.table(rows);
+  });
+};
 
-//
-const sql = `UPDATE candidates SET party_id = ? 
-                 WHERE id = ?`;
-    const params = [req.body.party_id, req.params.id];
-    db.query(sql, params, (err, result) => {
-      if (err) {
-        res.status(400).json({ error: err.message });
-        // check if a record was found
-      } else if (!result.affectedRows) {
-        res.json({
-          message: 'Candidate not found'
-        });
-      } else {
-        res.json({
-          message: 'success',
-          data: req.body,
-          changes: result.affectedRows
-        });
-      }
+const addDepartment = () => {
+  const sql = `INSERT INTO department (name)
+    VALUES (?)`;
+  const params = [department];
+
+  db.query(sql, params, (err, result) => {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      return;
+    }
+    res.json({
+      message: "success",
+      data: body,
     });
-    
-UPDATE candidates
-SET industry_connected = 1
-WHERE id = 3;
+  });
+};
 
-INSERT INTO candidates (first_name, last_name, industry_connected)
-VALUES
-*/
-module.exports = { findAllEmployees };
-//db
-//db.findAllEmployees()
+const addRole = () => {
+  const sql = `INSERT INTO role (title, salary department_id)
+              VALUES (?,?,?)`;
+  const params = [role, department, salary];
+
+  db.query(sql, params, (err, result) => {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      return;
+    }
+    res.json({
+      message: "success",
+      data: body,
+    });
+  });
+};
+
+const addEmployee = () => {
+  const sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id)
+              VALUES (?,?,?,?)`;
+  const params = [firstName, lastName, role, manager];
+  db.query(sql, params, (err, result) => {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      return;
+    }
+    res.json({
+      message: "success",
+      data: body,
+    });
+  });
+};
+
+const updateRole = () => {
+  const sql = `UPDATE employee SET role_id = ? 
+                WHERE employee = ?`;
+  const params = [employee, role];
+  db.query(sql, params, (err, result) => {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      // check if a record was found
+    } else if (!result.affectedRows) {
+      res.json({
+        message: "Employee not found",
+      });
+    } else {
+      res.json({
+        message: "success",
+        data: req.body,
+        changes: result.affectedRows,
+      });
+    }
+  });
+};
+
+module.exports = {
+  findAllEmployees,
+  findAllDepartments,
+  findAllRoles,
+  addDepartment,
+  addRole,
+  addEmployee,
+  updateRole,
+};
