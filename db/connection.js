@@ -1,16 +1,13 @@
 const mysql = require("mysql2");
 
-const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "mysqlPassword1",
-  database: "employee_db",
-});
+const connection = mysql.createConnection(
+  {
+    host: "localhost",
+    user: "root",
+    password: "mysqlPassword1",
+    database: "employee_db",
+  },
+  console.log("Connected to the election database.")
+);
 
-connection.connect(function (err) {
-  if (err) {
-    throw err;
-  } else {
-    console.log(`succesfully connected at ${connection.threadId}`);
-  }
-});
+module.exports = connection;
