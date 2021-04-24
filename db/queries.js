@@ -42,16 +42,12 @@ const addDepartment = () => {
   const sql = `INSERT INTO department (name)
     VALUES (?)`;
   const params = [department];
-
   db.query(sql, params, (err, result) => {
     if (err) {
-      res.status(400).json({ error: err.message });
+      console.log(err.message);
       return;
     }
-    res.json({
-      message: "success",
-      data: body,
-    });
+    console.log("You have successfully added this department to the database.");
   });
 };
 
@@ -62,13 +58,10 @@ const addRole = () => {
 
   db.query(sql, params, (err, result) => {
     if (err) {
-      res.status(400).json({ error: err.message });
+      console.log(err.message);
       return;
     }
-    res.json({
-      message: "success",
-      data: body,
-    });
+    console.log("You have successfully added this role to the database.");
   });
 };
 
@@ -78,34 +71,25 @@ const addEmployee = () => {
   const params = [firstName, lastName, role, manager];
   db.query(sql, params, (err, result) => {
     if (err) {
-      res.status(400).json({ error: err.message });
+      console.log(err.message);
       return;
     }
-    res.json({
-      message: "success",
-      data: body,
-    });
+    console.log("You have successfully added this employee to the database.");
   });
 };
 
 const updateRole = () => {
   const sql = `UPDATE employee SET role_id = ? 
                 WHERE employee = ?`;
-  const params = [employee, role];
+  const params = [chooseEmployee, chooseRole];
   db.query(sql, params, (err, result) => {
     if (err) {
-      res.status(400).json({ error: err.message });
+      console.log(err.message);
       // check if a record was found
     } else if (!result.affectedRows) {
-      res.json({
-        message: "Employee not found",
-      });
+      console.log("Employee not found");
     } else {
-      res.json({
-        message: "success",
-        data: req.body,
-        changes: result.affectedRows,
-      });
+      console.log("You have successfully updated this employee's role.");
     }
   });
 };

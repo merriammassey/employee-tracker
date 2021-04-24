@@ -31,15 +31,18 @@ const chooseQuery = () => {
         findAllRoles();
         //
         break;
-      case "Add a department":
+      case "Add a department": 
+        inquirer.prompt(deptQuestion).then((menuData) => 
         addDepartment();
         //
         break;
       case "Add a role":
+        inquirer.prompt(roleQuestions).then((menuData) => 
         addRole();
         //
         break;
       case "Add an employee":
+        inquirer.prompt(employeeQuestions).then((menuData) => 
         addEmployee();
         //
         break;
