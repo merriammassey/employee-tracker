@@ -16,7 +16,7 @@ THEN I am prompted to select an employee to update and their new role and this i
 const deptQuestion = [
   {
     type: "input",
-    name: "addDepartment",
+    name: "department",
     message: "What is the name of the department? (Required)",
     validate: (idInput) => {
       if (idInput) {
@@ -32,7 +32,7 @@ const deptQuestion = [
 const roleQuestions = [
   {
     type: "input",
-    name: "addRole",
+    name: "role",
     message: "What is the name of the role? (Required)",
     validate: (idInput) => {
       if (idInput) {
@@ -45,7 +45,7 @@ const roleQuestions = [
   },
   {
     type: "input",
-    name: "addDepartment",
+    name: "department",
     message: "What is the name of the department? (Required)",
     validate: (idInput) => {
       if (idInput) {
@@ -58,7 +58,7 @@ const roleQuestions = [
   },
   {
     type: "input",
-    name: "addSalary",
+    name: "salary",
     message: "What is the salary for this role? (Required)",
     validate: (idInput) => {
       if (idInput) {
@@ -74,7 +74,7 @@ const roleQuestions = [
 const employeeQuestions = [
   {
     type: "input",
-    name: "addFirstName",
+    name: "firstName",
     message: "What is the first name? (Required)",
     validate: (idInput) => {
       if (idInput) {
@@ -87,7 +87,7 @@ const employeeQuestions = [
   },
   {
     type: "input",
-    name: "addLastName",
+    name: "lastName",
     message: "What is the last name? (Required)",
     validate: (idInput) => {
       if (idInput) {
@@ -100,7 +100,7 @@ const employeeQuestions = [
   },
   {
     type: "input",
-    name: "addRole",
+    name: "role",
     message: "What is the employee's role? (Required)",
     validate: (idInput) => {
       if (idInput) {
@@ -113,7 +113,7 @@ const employeeQuestions = [
   },
   {
     type: "input",
-    name: "addManager",
+    name: "manager",
     message: "What is the employee's manager? (Required)",
     validate: (idInput) => {
       if (idInput) {
@@ -125,62 +125,6 @@ const employeeQuestions = [
     },
   },
 ];
-/*   
-//THEN I am prompted to select an employee to update and their new role and this information is updated in the database 
-const updateEmployeeQuestions = [
-    {
-        type: 'input',
-        name: 'addFirstName',
-        message: 'What is the first name? (Required)',
-        validate: idInput => {
-            if (idInput) {
-                return true;
-            } else {
-                console.log('Please enter the first name.');
-                return false;
-            }
-        }
-    },
-    {
-        type: 'input',
-        name: 'addLastName',
-        message: 'What is the last name? (Required)',
-        validate: idInput => {
-            if (idInput) {
-                return true;
-            } else {
-                console.log('Please enter the last name.');
-                return false;
-            }
-        }
-    },
-    {
-        type: 'input',
-        name: 'addRole',
-        message: "What is the employee's role? (Required)",
-        validate: idInput => {
-            if (idInput) {
-                return true;
-            } else {
-                console.log('Please enter the role name.');
-                return false;
-            }
-        }
-    },
-    {
-        type: 'input',
-        name: 'addManager',
-        message: "What is the employee's manager? (Required)",
-        validate: idInput => {
-            if (idInput) {
-                return true;
-            } else {
-                console.log('Please enter the manager name.');
-                return false;
-            }
-        }
-    },
-] */
 
 const menuQuestion = {
   type: "list",
