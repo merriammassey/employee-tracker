@@ -1,10 +1,12 @@
+const departmentChoices = require("../db/queries.js");
+
 const deptQuestion = [
   {
     type: "input",
-    name: "department",
+    name: "name",
     message: "What is the name of the department? (Required)",
-    validate: (idInput) => {
-      if (idInput) {
+    validate: (name) => {
+      if (name) {
         return true;
       } else {
         console.log("Please enter the department name.");
@@ -13,11 +15,11 @@ const deptQuestion = [
     },
   },
 ];
-
+/*
 const roleQuestions = [
   {
     type: "input",
-    name: "role",
+    name: "title",
     message: "What is the name of the role? (Required)",
     validate: (idInput) => {
       if (idInput) {
@@ -29,18 +31,18 @@ const roleQuestions = [
     },
   },
   {
-    type: "input",
+    //make this *select* department not enter department
+    type: "list",
     name: "department",
-    message: "What is the name of the department? (Required)",
-    validate: (idInput) => {
-      if (idInput) {
-        return true;
-      } else {
-        console.log("Please enter the department name.");
-        return false;
-      }
-    },
-  },
+    message: "Choose the department for this role. (Required)",
+    choices: [${connection.query(
+        `SELECT CONCAT("ID: ", id, " Department: ", name) FROM department`),
+        (err, res) => {
+          if (err) reject(err);
+          resolve(res);
+          //return departmentChoices;
+        },
+  }],
   {
     type: "input",
     name: "salary",
@@ -55,7 +57,7 @@ const roleQuestions = [
     },
   },
 ];
-
+*/
 const employeeQuestions = [
   {
     type: "input",
@@ -149,5 +151,5 @@ module.exports = {
   menuQuestion,
   employeeQuestions,
   deptQuestion,
-  roleQuestions,
+  //roleQuestions,
 };

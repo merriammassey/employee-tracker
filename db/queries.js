@@ -1,5 +1,11 @@
 const connection = require("./connection.js");
 const cTable = require("console.table");
+const inquirer = require("inquirer");
+const {
+  employeeQuestions,
+  deptQuestion,
+  roleQuestions,
+} = require("../src/questions");
 
 const findAllEmployees = () => {
   const sql = `SELECT * FROM employee`;
@@ -19,11 +25,13 @@ const findAllRoles = () => {
   return connection.query(sql);
 };
 
-const addDepartment = () => {
+const addDepartment = async () => {
+  const name = await inquirer.prompt(deptQuestion);
+  console.log(name.name);
   const sql = `INSERT INTO department (name)
     VALUES (?)`;
-  const params = [department];
-  db.query(sql, params, (err, result) => {
+  const params = name.name;
+  connection.query(sql, params, (err, result) => {
     if (err) {
       console.log(err.message);
       return;
@@ -32,25 +40,107 @@ const addDepartment = () => {
   });
 };
 
-const addRole = () => {
-  const sql = `INSERT INTO role (title, salary, department_id)
-              VALUES (?,?,?)`;
-  const params = [role, department, salary];
+//make a list of departments and dept IDs by concating those columns from department table
+let listDepartments = () => {
+  /*return new Promise((resolve, reject) => {
+    connection.query(
+      `SELECT CONCAT("ID: ", id, " Department: ", name) as Department FROM department`,
+      (err, res) => {
+        if (err) reject(err);
+        resolve(res);
+      }
+    ); 
+  }); */
+  return connection.query(
+    `SELECT department.name, department.id FROM department`
+  );
+};
 
-  db.query(sql, params, (err, result) => {
+//use list of departments and dept IDs in inquirer questions for adding a role
+const runRoleQuestions = async () => {
+  let choices = await listDepartments();
+  console.log(choices);
+  let departmentChoices = choices.map(({ id, name }) => ({
+    name: name,
+    value: id,
+  }));
+  //return new Promise((resolve, reject) => {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "title",
+        message: "What is the name of the role? (Required)",
+        validate: (idInput) => {
+          if (idInput) {
+            return true;
+          } else {
+            console.log("Please enter the role name.");
+            return false;
+          }
+        },
+      },
+      {
+        type: "list",
+        name: "department",
+        message: "Choose the department for this role. (Required)",
+        choices: departmentChoices,
+      },
+      {
+        type: "input",
+        name: "salary",
+        message: "What is the salary for this role? (Required)",
+        validate: (idInput) => {
+          if (idInput) {
+            return true;
+          } else {
+            console.log("Please enter the salary.");
+            return false;
+          }
+        },
+      },
+    ])
+    .then((answers) => {
+      const sql = `INSERT INTO role (title, salary, department_id)
+              VALUES (?,?,?)`;
+      const params = [answers.title, answers.salary, answers.department];
+      connection.query(sql, params, (err, result) => {
+        if (err) {
+          console.log(err.message);
+          return;
+        }
+        console.log("You have successfully added this role to the database.");
+      });
+      console.log(answers);
+      return answers;
+      //resolve();
+      //});
+    });
+};
+
+const addRole = async () => {
+  //let { title, department, salary } =
+  await runRoleQuestions();
+  //const department_id = Number.parseInt(department.split(" ")[1]);
+  //console.log(department_id);
+  //department_id = department;
+  /* const sql = `INSERT INTO role (title, salary, department_id)
+              VALUES (?,?,?)`;
+  const params = [title, salary, department_id];
+  connection.query(sql, params, (err, result) => {
     if (err) {
       console.log(err.message);
       return;
     }
     console.log("You have successfully added this role to the database.");
-  });
+  }); */
 };
 
 const addEmployee = () => {
   const sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id)
               VALUES (?,?,?,?)`;
   const params = [firstName, lastName, role, manager];
-  db.query(sql, params, (err, result) => {
+  connection.query(sql, params, (err, result) => {
     if (err) {
       console.log(err.message);
       return;
@@ -127,4 +217,8 @@ module.exports = {
   addRole,
   addEmployee,
   //updateRole,
+  //listEmployees,
+  //listRoles,
+  //listDepartments,
 };
+//module.exports = departmentChoices;

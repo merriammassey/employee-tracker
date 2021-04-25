@@ -44,19 +44,13 @@ const chooseQuery = () => {
       case "View all roles":
         return showAllRoles();
       case "Add a department":
-        inquirer.prompt(deptQuestion).then((menuData) => {
-          return addDepartment();
-        });
+        return addDepartment();
       case "Add a role":
-        inquirer.prompt(roleQuestions).then((menuData) => {
-          return addRole();
-        });
+        return addRole();
       case "Add an employee":
-        inquirer.prompt(employeeQuestions).then((menuData) => {
-          return addEmployee();
-        });
-      case "Update an employee role":
-        return updateRole();
+        return addEmployee();
+      //case "Update an employee role":
+      //return updateRole();
     }
   });
 };
