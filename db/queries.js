@@ -1,41 +1,22 @@
 const connection = require("./connection.js");
 const cTable = require("console.table");
 
-//queries
 const findAllEmployees = () => {
   const sql = `SELECT * FROM employee`;
   //query the connection between database and console
-  connection.query(sql, (err, rows) => {
-    if (err) {
-      console.log(err.message);
-      return;
-    }
-    console.table(rows);
-  });
+  //return a promise
+  return connection.query(sql);
 };
 
 const findAllDepartments = () => {
   const sql = `SELECT * FROM department`;
-  //query the connection between database and console
-  connection.query(sql, (err, rows) => {
-    if (err) {
-      console.log(err.message);
-      return;
-    }
-    console.table(rows);
-  });
+  return connection.query(sql);
 };
 
 const findAllRoles = () => {
   const sql = `SELECT * FROM role`;
   //query the connection between database and console
-  connection.query(sql, (err, rows) => {
-    if (err) {
-      console.log(err.message);
-      return;
-    }
-    console.table(rows);
-  });
+  return connection.query(sql);
 };
 
 const addDepartment = () => {
@@ -52,7 +33,7 @@ const addDepartment = () => {
 };
 
 const addRole = () => {
-  const sql = `INSERT INTO role (title, salary department_id)
+  const sql = `INSERT INTO role (title, salary, department_id)
               VALUES (?,?,?)`;
   const params = [role, department, salary];
 
@@ -78,19 +59,63 @@ const addEmployee = () => {
   });
 };
 
-const updateRole = () => {
-  const sql = `UPDATE employee SET role_id = ? 
-                WHERE employee = ?`;
-  const params = [chooseEmployee, chooseRole];
-  db.query(sql, params, (err, result) => {
-    if (err) {
-      console.log(err.message);
-      // check if a record was found
-    } else if (!result.affectedRows) {
-      console.log("Employee not found");
-    } else {
-      console.log("You have successfully updated this employee's role.");
-    }
+const listEmployees = () => {
+  return new Promise((resolve, reject) => {
+    connection.query(
+      `SELECT CONCAT("ID: " id " Name: " first_name, " ", last_name) FROM employee`,
+      (err, res) => {
+        if (err) reject(err);
+        resolve(res);
+      }
+    );
+  });
+};
+
+const listRoles = () => {
+  return new Promise((resolve, reject) => {
+    connection.query(
+      `SELECT CONCAT("ID: " id " Title: " title") FROM role`,
+      (err, res) => {
+        if (err) reject(err);
+        resolve(res);
+      }
+    );
+  });
+};
+
+const updateRole = async () => {
+  let choices = await connection.query.listEmployees();
+  console.log(choices);
+  return new Promise((resolve, reject) => {
+    inquirer
+      .prompt([
+        {
+          type: "list",
+          name: "chooseEmployee",
+          message: "Select an employee to update. (Required)",
+          choices: choices,
+        },
+      ])
+      .then(({ chooseEmployee }) => {
+        const id = Number.parseInt(chooseEmployee.split(" ")[1]);
+        console.log(id);
+        resolve();
+      });
+    //ask which role
+    //split to get role id
+    const sql = `UPDATE employee SET role_id = ? 
+                    WHERE id = ?`;
+    const params = [id, chooseRole];
+    db.query(sql, params, (err, result) => {
+      if (err) {
+        console.log(err.message);
+        // check if a record was found
+      } else if (!result.affectedRows) {
+        console.log("Employee not found");
+      } else {
+        console.log("You have successfully updated this employee's role.");
+      }
+    });
   });
 };
 
@@ -101,5 +126,5 @@ module.exports = {
   addDepartment,
   addRole,
   addEmployee,
-  updateRole,
+  //updateRole,
 };
