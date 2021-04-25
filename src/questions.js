@@ -57,61 +57,8 @@ const roleQuestions = [
     },
   },
 ];
-*/
-const employeeQuestions = [
-  {
-    type: "input",
-    name: "firstName",
-    message: "What is the first name? (Required)",
-    validate: (idInput) => {
-      if (idInput) {
-        return true;
-      } else {
-        console.log("Please enter the first name.");
-        return false;
-      }
-    },
-  },
-  {
-    type: "input",
-    name: "lastName",
-    message: "What is the last name? (Required)",
-    validate: (idInput) => {
-      if (idInput) {
-        return true;
-      } else {
-        console.log("Please enter the last name.");
-        return false;
-      }
-    },
-  },
-  {
-    type: "input",
-    name: "role",
-    message: "What is the employee's role? (Required)",
-    validate: (idInput) => {
-      if (idInput) {
-        return true;
-      } else {
-        console.log("Please enter the role name.");
-        return false;
-      }
-    },
-  },
-  {
-    type: "input",
-    name: "manager",
-    message: "What is the employee's manager? (Required)",
-    validate: (idInput) => {
-      if (idInput) {
-        return true;
-      } else {
-        console.log("Please enter the manager name.");
-        return false;
-      }
-    },
-  },
-];
+
+const employeeQuestions = 
 
 const UpdateRoleQuestions = [
   {
@@ -131,7 +78,7 @@ const UpdateRoleQuestions = [
     ],
   },
 ];
-
+*/
 const menuQuestion = {
   type: "list",
   name: "nextStep",
@@ -149,7 +96,7 @@ const menuQuestion = {
 
 module.exports = {
   menuQuestion,
-  employeeQuestions,
+  //employeeQuestions,
   deptQuestion,
   //roleQuestions,
 };

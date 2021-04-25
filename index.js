@@ -5,7 +5,7 @@ const {
   addDepartment,
   addRole,
   addEmployee,
-  //updateRole,
+  updateRole,
 } = require("./db/queries.js");
 const inquirer = require("inquirer");
 const {
@@ -49,8 +49,8 @@ const chooseQuery = () => {
         return addRole();
       case "Add an employee":
         return addEmployee();
-      //case "Update an employee role":
-      //return updateRole();
+      case "Update an employee role":
+        return updateRole();
     }
   });
 };
