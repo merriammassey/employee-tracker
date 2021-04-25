@@ -1,16 +1,12 @@
 const connection = require("./connection.js");
 const cTable = require("console.table");
 const inquirer = require("inquirer");
-const {
-  //employeeQuestions,
-  deptQuestion,
-  //roleQuestions,
-} = require("../src/questions");
 
 const findAllEmployees = () => {
-  const sql = `SELECT * FROM employee`;
-  //query the connection between database and console
-  //return a promise
+  const sql = `SELECT employee.id, employee.first_name, employee.last_name, title, department.name, role.salary, manager.first_name, manager.last_name FROM employee
+  LEFT JOIN role ON employee.role_id = role.id
+  LEFT JOIN department ON role.department_id = department.id 
+  LEFT JOIN employee as manager ON employee.manager_id = manager.id;`;
   return connection.query(sql);
 };
 
