@@ -3,7 +3,7 @@ const cTable = require("console.table");
 const inquirer = require("inquirer");
 
 const findAllEmployees = () => {
-  const sql = `SELECT employee.id, employee.first_name, employee.last_name, title, department.name, role.salary, manager.first_name, manager.last_name FROM employee
+  const sql = `SELECT employee.id as ID, employee.first_name as First, employee.last_name as Last, title as Title, department.name as Department, role.salary as Salary, CONCAT(manager.first_name, " ", manager.last_name) as Manager FROM employee
   LEFT JOIN role ON employee.role_id = role.id
   LEFT JOIN department ON role.department_id = department.id 
   LEFT JOIN employee as manager ON employee.manager_id = manager.id;`;
@@ -11,18 +11,30 @@ const findAllEmployees = () => {
 };
 
 const findAllDepartments = () => {
-  const sql = `SELECT * FROM department`;
+  const sql = `SELECT department.id as ID, name as Department FROM department`;
   return connection.query(sql);
 };
 
 const findAllRoles = () => {
-  const sql = `SELECT role.id, role.title, role.salary, department.name as department FROM role
+  const sql = `SELECT role.id as ID, role.title as Role, role.salary as Salary, department.name as Department FROM role
   LEFT JOIN department ON role.department_id = department.id;`;
   return connection.query(sql);
 };
 
 const addDepartment = async () => {
-  const name = await inquirer.prompt(deptQuestion);
+  const name = await inquirer.prompt({
+    type: "input",
+    name: "name",
+    message: "What is the name of the department? (Required)",
+    validate: (name) => {
+      if (name) {
+        return true;
+      } else {
+        console.log("Please enter the department name.");
+        return false;
+      }
+    },
+  });
   console.log(name.name);
   const sql = `INSERT INTO department (name)
     VALUES (?)`;
