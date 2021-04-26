@@ -16,7 +16,8 @@ const findAllDepartments = () => {
 };
 
 const findAllRoles = () => {
-  const sql = `SELECT * FROM role`;
+  const sql = `SELECT role.id, role.title, role.salary, department.name as department FROM role
+  LEFT JOIN department ON role.department_id = department.id;`;
   return connection.query(sql);
 };
 
