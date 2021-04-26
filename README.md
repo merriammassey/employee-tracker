@@ -14,7 +14,7 @@ This app was desirned to allow a business owner to view and manage the departmen
 
 ## Video
 
-[![image](https://user-images.githubusercontent.com/77468612/116026959-93875080-a608-11eb-8a78-8eb94997e0f0.png)](https://youtu.be/F0PewPJ_J0Y "Video of functionality")
+[![image](https://user-images.githubusercontent.com/77468612/116026959-93875080-a608-11eb-8a78-8eb94997e0f0.png)](https://youtu.be/PFOQxOQ3AT4 "Video of functionality")
 
 ## Screenshot
 
