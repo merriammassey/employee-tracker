@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This app was desirned to allow a business owner to view and manage the departments, roles, and employees in their company.
+This app was designed to allow a business owner to view and manage the departments, roles, and employees in their company.
 
 ## Built With
 
