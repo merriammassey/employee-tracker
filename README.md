@@ -4,13 +4,29 @@
 
 This app was designed to allow a business owner to view and manage the departments, roles, and employees in their company.
 
-## Built With
+## Table of Contents
+* [Tools](#tools)
+* [Installation](#installation)
+* [Video](#video)
+* [Screenshot](#screenshot)
+* [Contribution](#contribution)
+
+## Tools
 
 - JavaScript
 - Node.js
 - NPM Inquirer
 - MySQL2
 - console.table
+
+## Installaton
+Clone the repository and install Node. To install Inquirer, use:
+
+`npm i`
+
+To start the application, use:
+
+`node index.js`
 
 ## Video
 
