@@ -19,7 +19,7 @@ This app was designed to allow a business owner to view and manage the departmen
 - MySQL2
 - console.table
 
-## Installaton
+## Installation
 Clone the repository and install Node. To install Inquirer, use:
 
 `npm i`
