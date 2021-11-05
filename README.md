@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This app was designed to allow a business owner to view and manage the departments, roles, and employees in their company.
+This command-line application was designed to allow a business owner to view and manage the departments, roles, and employees in their company. Built with Node.js, Inquirer, and MySQL.
 
 ## Table of Contents
 * [Tools](#tools)
